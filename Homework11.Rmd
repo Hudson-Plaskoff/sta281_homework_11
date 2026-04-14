@@ -1,0 +1,26 @@
+---
+title: "Homework11"
+author: "HudsonPlaskoff"
+date: "2026-04-18"
+output:
+  html_document:
+    code_folding: hide
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(nycflights13)
+```
+
+## Origin and Destination Pairs^[Question 1 complete]
+
+```{r}
+pairs <- flights %>%
+  group_by(origin,dest) %>%
+  summarize(
+    n = n()
+  )
+
+knitr::kable(pairs %>% head())
+```
