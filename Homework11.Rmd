@@ -24,3 +24,33 @@ pairs <- flights %>%
 
 knitr::kable(pairs %>% head())
 ```
+
+## Latitudes and Longitudes of Origin Airports^[Question 2 complete]
+
+```{r}
+pairs <- pairs %>%
+  left_join(airports, join_by(origin==faa)) %>%
+  select(origin,dest,n,lon,lat) %>%
+  rename(
+    origin_lon = lon,
+    origin_lat = lat
+  ) %>%
+  relocate(origin_lon, origin_lat, .before=dest)
+
+knitr::kable(pairs %>% head())
+```
+
+## Latitudes and Longitudes of Destination Airports^[Question 3 complete]
+
+```{r}
+pairs <- pairs %>%
+  left_join(airports, join_by(dest==faa)) %>%
+  select(origin,origin_lon,origin_lat,dest,n,lon,lat) %>%
+  rename(
+    dest_lon = lon,
+    dest_lat = lat
+  ) %>%
+  relocate(dest_lon, dest_lat, .before=n)
+
+knitr::kable(pairs %>% head())
+```

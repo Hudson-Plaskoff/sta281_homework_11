@@ -497,10 +497,162 @@ display: none;
 </tbody>
 </table>
 </div>
+<div id="latitudes-and-longitudes-of-origin-airports" class="section level2">
+<h2>Latitudes and Longitudes of Origin Airports<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a></h2>
+<pre class="r"><code>pairs &lt;- pairs %&gt;%
+  left_join(airports, join_by(origin==faa)) %&gt;%
+  select(origin,dest,n,lon,lat) %&gt;%
+  rename(
+    origin_lon = lon,
+    origin_lat = lat
+  ) %&gt;%
+  relocate(origin_lon, origin_lat, .before=dest)
+
+knitr::kable(pairs %&gt;% head())</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="left">origin</th>
+<th align="right">origin_lon</th>
+<th align="right">origin_lat</th>
+<th align="left">dest</th>
+<th align="right">n</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">EWR</td>
+<td align="right">-74.16867</td>
+<td align="right">40.6925</td>
+<td align="left">ALB</td>
+<td align="right">439</td>
+</tr>
+<tr class="even">
+<td align="left">EWR</td>
+<td align="right">-74.16867</td>
+<td align="right">40.6925</td>
+<td align="left">ANC</td>
+<td align="right">8</td>
+</tr>
+<tr class="odd">
+<td align="left">EWR</td>
+<td align="right">-74.16867</td>
+<td align="right">40.6925</td>
+<td align="left">ATL</td>
+<td align="right">5022</td>
+</tr>
+<tr class="even">
+<td align="left">EWR</td>
+<td align="right">-74.16867</td>
+<td align="right">40.6925</td>
+<td align="left">AUS</td>
+<td align="right">968</td>
+</tr>
+<tr class="odd">
+<td align="left">EWR</td>
+<td align="right">-74.16867</td>
+<td align="right">40.6925</td>
+<td align="left">AVL</td>
+<td align="right">265</td>
+</tr>
+<tr class="even">
+<td align="left">EWR</td>
+<td align="right">-74.16867</td>
+<td align="right">40.6925</td>
+<td align="left">BDL</td>
+<td align="right">443</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="latitudes-and-longitudes-of-destination-airports" class="section level2">
+<h2>Latitudes and Longitudes of Destination Airports<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a></h2>
+<pre class="r"><code>pairs &lt;- pairs %&gt;%
+  left_join(airports, join_by(dest==faa)) %&gt;%
+  select(origin,origin_lon,origin_lat,dest,n,lon,lat) %&gt;%
+  rename(
+    dest_lon = lon,
+    dest_lat = lat
+  ) %&gt;%
+  relocate(dest_lon, dest_lat, .before=n)
+
+knitr::kable(pairs %&gt;% head())</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="left">origin</th>
+<th align="right">origin_lon</th>
+<th align="right">origin_lat</th>
+<th align="left">dest</th>
+<th align="right">dest_lon</th>
+<th align="right">dest_lat</th>
+<th align="right">n</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">EWR</td>
+<td align="right">-74.16867</td>
+<td align="right">40.6925</td>
+<td align="left">ALB</td>
+<td align="right">-73.80169</td>
+<td align="right">42.74827</td>
+<td align="right">439</td>
+</tr>
+<tr class="even">
+<td align="left">EWR</td>
+<td align="right">-74.16867</td>
+<td align="right">40.6925</td>
+<td align="left">ANC</td>
+<td align="right">-149.99636</td>
+<td align="right">61.17436</td>
+<td align="right">8</td>
+</tr>
+<tr class="odd">
+<td align="left">EWR</td>
+<td align="right">-74.16867</td>
+<td align="right">40.6925</td>
+<td align="left">ATL</td>
+<td align="right">-84.42807</td>
+<td align="right">33.63672</td>
+<td align="right">5022</td>
+</tr>
+<tr class="even">
+<td align="left">EWR</td>
+<td align="right">-74.16867</td>
+<td align="right">40.6925</td>
+<td align="left">AUS</td>
+<td align="right">-97.66989</td>
+<td align="right">30.19453</td>
+<td align="right">968</td>
+</tr>
+<tr class="odd">
+<td align="left">EWR</td>
+<td align="right">-74.16867</td>
+<td align="right">40.6925</td>
+<td align="left">AVL</td>
+<td align="right">-82.54181</td>
+<td align="right">35.43619</td>
+<td align="right">265</td>
+</tr>
+<tr class="even">
+<td align="left">EWR</td>
+<td align="right">-74.16867</td>
+<td align="right">40.6925</td>
+<td align="left">BDL</td>
+<td align="right">-72.68322</td>
+<td align="right">41.93889</td>
+<td align="right">443</td>
+</tr>
+</tbody>
+</table>
+</div>
 <div class="footnotes footnotes-end-of-document">
 <hr />
 <ol>
 <li id="fn1"><p>Question 1 complete<a href="#fnref1" class="footnote-back">↩︎</a></p></li>
+<li id="fn2"><p>Question 2 complete<a href="#fnref2" class="footnote-back">↩︎</a></p></li>
+<li id="fn3"><p>Question 3 complete<a href="#fnref3" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
 
